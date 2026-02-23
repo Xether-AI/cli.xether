@@ -1,7 +1,7 @@
 import typer
 from rich.console import Console
 
-from xether_cli.commands import auth, config as config_cmd, dataset, pipeline
+from xether_cli.commands import auth, config as config_cmd, dataset, pipeline, artifact
 
 app = typer.Typer(
     help="Xether AI Command Line Interface",
@@ -14,6 +14,7 @@ app.add_typer(auth.app, name="auth", help="Authentication commands (login/logout
 app.add_typer(config_cmd.app, name="config", help="Manage CLI configuration")
 app.add_typer(dataset.app, name="dataset", help="Dataset management operations")
 app.add_typer(pipeline.app, name="pipeline", help="Pipeline execution and monitoring")
+app.add_typer(artifact.app, name="artifact", help="Artifact and output data handling")
 
 @app.command()
 def info():
