@@ -1,12 +1,17 @@
 import typer
 from rich.console import Console
 
+from xether_cli.commands import auth, config as config_cmd
+
 app = typer.Typer(
     help="Xether AI Command Line Interface",
     no_args_is_help=True,
     add_completion=False,
 )
 console = Console()
+
+app.add_typer(auth.app, name="auth", help="Authentication commands (login/logout)")
+app.add_typer(config_cmd.app, name="config", help="Manage CLI configuration")
 
 @app.command()
 def info():
