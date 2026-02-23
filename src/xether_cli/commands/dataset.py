@@ -11,13 +11,14 @@ console = Console()
 
 @app.command("ls")
 def list_datasets(
+    project_id: int = typer.Option(..., "--project-id", "-p", help="ID of the project"),
     skip: int = typer.Option(0, help="Skip N datasets"),
     limit: int = typer.Option(50, help="Limit number of returned datasets")
 ):
     """List available datasets"""
     client = get_client()
     try:
-        response = client.get(f"/api/v1/datasets?skip={skip}&limit={limit}")
+        response = client.get(f"/api/v1/datasets?project_id={project_id}&skip={skip}&limit={limit}")
         if response.status_code == 200:
             datasets = response.json()
             if not datasets:
@@ -90,6 +91,7 @@ def remove_dataset(
 @app.command("push")
 def push_dataset(
     file_path: str = typer.Argument(..., help="Path to the local file to upload"),
+    project_id: int = typer.Option(..., "--project-id", "-p", help="ID of the project"),
     name: str = typer.Option(None, help="Name for the dataset (defaults to file name)"),
     description: str = typer.Option("", help="Optional description")
 ):
@@ -120,6 +122,7 @@ def push_dataset(
             # Step 1: Request pre-signed URL by basically creating the dataset record in main-backend
             create_payload = {
                 "name": dataset_name,
+                "project_id": project_id,
                 "description": description,
                 "size_bytes": file_size,
                 "mime_type": mime_type

@@ -6,7 +6,7 @@ class XetherAPIClient:
     def __init__(self):
         self.config = load_config()
         self.base_url = self.config.backend_url
-        self.client = httpx.Client(base_url=self.base_url)
+        self.client = httpx.Client(base_url=self.base_url, follow_redirects=True)
         self._set_auth_header()
         
     def _set_auth_header(self):
