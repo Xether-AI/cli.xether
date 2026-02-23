@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "xether-cli"
+version = "0.1.0"
+description = "Command-line interface for the Xether AI platform"
+authors = ["Xether AI <hello@xether.ai>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typer = "^0.15.1"
+rich = "^13.9.4"
+httpx = "^0.28.1"
+pydantic = "^2.10.6"
+
+[tool.poetry.scripts]
+xether = "xether_cli.main:app"
