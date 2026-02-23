@@ -18,10 +18,10 @@ def login():
     
     client = get_client()
     try:
-        # Expected Main Backend endpoint: /api/v1/auth/access-token
-        # Using form data as dictated by OAuth2PasswordRequestForm
+        # Real endpoint is /api/v1/auth/login
+        # FastAPI OAuth2PasswordRequestForm expects x-www-form-urlencoded
         response = client.post(
-            "/api/v1/auth/access-token", 
+            "/api/v1/auth/login", 
             data={"username": email, "password": password}
         )
         
