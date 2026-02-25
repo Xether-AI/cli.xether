@@ -1,0 +1,30 @@
+name: Mirror to GitLab
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mirror to GitLab
+        run: |
+          set -e  # Exit on any error
+          git remote add gitlab https://gitlab.com/xether.ai/cli.xether.git
+          git push gitlab --all --force
+          git push gitlab --tags --force
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "Mirror to GitLab failed"
