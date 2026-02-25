@@ -2,7 +2,7 @@ import typer
 from rich.console import Console
 from rich.prompt import Prompt
 from xether_cli.core.config import load_config, save_config, XetherConfig
-from xether_cli.api.client import get_client
+from xether_cli.api.client import get_client, XetherNetworkError, XetherHTTPError, XetherAuthError
 
 app = typer.Typer(help="Authentication commands")
 console = Console()
@@ -34,8 +34,14 @@ def login():
             console.print("[bold green]Successfully logged in![/bold green]")
         else:
             console.print(f"[bold red]Login failed:[/bold red] {response.text}")
+    except XetherNetworkError as e:
+        console.print(f"[bold red]Network error:[/bold red] {e}")
+    except XetherHTTPError as e:
+        console.print(f"[bold red]HTTP error {e.status_code}:[/bold red] {e}")
+    except XetherAuthError as e:
+        console.print(f"[bold red]Authentication error:[/bold red] {e}")
     except Exception as e:
-        console.print(f"[bold red]Error connecting to server:[/bold red] {str(e)}")
+        console.print(f"[bold red]Unexpected error:[/bold red] {e}")
     finally:
         client.close()
 
@@ -76,7 +82,12 @@ def status():
         else:
             console.print("Status: [bold red]Session Expired or Invalid[/bold red]")
             console.print("Please run [bold]xether auth login[/bold] again.")
+    except XetherNetworkError as e:
+        console.print(f"[bold red]Network error checking status:[/bold red] {e}")
+    except XetherAuthError as e:
+        console.print("Status: [bold red]Session Expired or Invalid[/bold red]")
+        console.print("Please run [bold]xether auth login[/bold] again.")
     except Exception as e:
-        console.print(f"[bold red]Error checking status:[/bold red] {str(e)}")
+        console.print(f"[bold red]Error checking status:[/bold red] {e}")
     finally:
         client.close()
