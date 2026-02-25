@@ -22,7 +22,7 @@ class TestXetherAPIClient:
         client = XetherAPIClient()
         
         assert client.base_url == "https://test.xether.ai"
-        assert client.client.timeout == 30.0
+        assert str(client.client.timeout) == "Timeout(timeout=30.0)"
         assert "Authorization" in client.client.headers
         assert client.client.headers["Authorization"] == "Bearer test-token"
     
