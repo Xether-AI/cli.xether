@@ -24,7 +24,7 @@ def list(
         params["team_id"] = team_id
     
     try:
-        response = client.get("/projects/", params=params)
+        response = client.get("/api/v1/projects/", params=params)
         response.raise_for_status()
         projects = response.json()
         
@@ -63,7 +63,7 @@ def info(
     client = XetherAPIClient()
     
     try:
-        response = client.get(f"/projects/{project_id}")
+        response = client.get(f"/api/v1/projects/{project_id}")
         response.raise_for_status()
         project = response.json()
         
@@ -101,7 +101,7 @@ def create(
         project_data["description"] = description
     
     try:
-        response = client.post("/projects/", json=project_data)
+        response = client.post("/api/v1/projects/", json=project_data)
         response.raise_for_status()
         project = response.json()
         
@@ -134,7 +134,7 @@ def update(
         update_data["description"] = description
     
     try:
-        response = client.patch(f"/projects/{project_id}", json=update_data)
+        response = client.patch(f"/api/v1/projects/{project_id}", json=update_data)
         response.raise_for_status()
         project = response.json()
         
@@ -160,7 +160,7 @@ def delete(
     client = XetherAPIClient()
     
     try:
-        response = client.delete(f"/projects/{project_id}")
+        response = client.delete(f"/api/v1/projects/{project_id}")
         response.raise_for_status()
         
         console.print(f"[green]✓[/green] Project {project_id} deleted successfully!")

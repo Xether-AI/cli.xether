@@ -18,7 +18,7 @@ def list():
     client = XetherAPIClient()
     
     try:
-        response = client.get("/teams/")
+        response = client.get("/api/v1/teams/")
         response.raise_for_status()
         teams = response.json()
         
@@ -57,7 +57,7 @@ def info(
     client = XetherAPIClient()
     
     try:
-        response = client.get(f"/teams/{team_id}")
+        response = client.get(f"/api/v1/teams/{team_id}")
         response.raise_for_status()
         team = response.json()
         
@@ -93,7 +93,7 @@ def create(
         team_data["description"] = description
     
     try:
-        response = client.post("/teams/", json=team_data)
+        response = client.post("/api/v1/teams/", json=team_data)
         response.raise_for_status()
         team = response.json()
         
@@ -126,7 +126,7 @@ def update(
         update_data["description"] = description
     
     try:
-        response = client.patch(f"/teams/{team_id}", json=update_data)
+        response = client.patch(f"/api/v1/teams/{team_id}", json=update_data)
         response.raise_for_status()
         team = response.json()
         
@@ -145,7 +145,7 @@ def members(
     client = XetherAPIClient()
     
     try:
-        response = client.get(f"/teams/{team_id}/members")
+        response = client.get(f"/api/v1/teams/{team_id}/members")
         response.raise_for_status()
         members = response.json()
         
@@ -193,7 +193,7 @@ def add_member(
     }
     
     try:
-        response = client.post(f"/teams/{team_id}/members", json=member_data)
+        response = client.post(f"/api/v1/teams/{team_id}/members", json=member_data)
         response.raise_for_status()
         
         console.print(f"[green]✓[/green] User {user_id} added to team {team_id} as {role}!")
@@ -212,7 +212,7 @@ def remove_member(
     client = XetherAPIClient()
     
     try:
-        response = client.delete(f"/teams/{team_id}/members/{user_id}")
+        response = client.delete(f"/api/v1/teams/{team_id}/members/{user_id}")
         response.raise_for_status()
         
         console.print(f"[green]✓[/green] User {user_id} removed from team {team_id}!")
@@ -237,7 +237,7 @@ def delete(
     client = XetherAPIClient()
     
     try:
-        response = client.delete(f"/teams/{team_id}")
+        response = client.delete(f"/api/v1/teams/{team_id}")
         response.raise_for_status()
         
         console.print(f"[green]✓[/green] Team {team_id} deleted successfully!")
