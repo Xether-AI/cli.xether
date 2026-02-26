@@ -56,6 +56,72 @@ xether auth logout
 
 ## Core Commands
 
+### Teams
+
+Manage team organization and membership.
+
+- **List teams:**
+  ```bash
+  xether team ls
+  ```
+- **View team details:**
+  ```bash
+  xether team info <TEAM_ID>
+  ```
+- **Create a new team:**
+  ```bash
+  xether team create --name "My Team" --description "Team description"
+  ```
+- **Update team details:**
+  ```bash
+  xether team update <TEAM_ID> --name "New Name" --description "New description"
+  ```
+- **List team members:**
+  ```bash
+  xether team members <TEAM_ID>
+  ```
+- **Add a team member:**
+  ```bash
+  xether team add-member <TEAM_ID> --user <USER_ID> --role developer
+  ```
+- **Remove a team member:**
+  ```bash
+  xether team remove-member <TEAM_ID> --user <USER_ID>
+  ```
+- **Delete a team:**
+  ```bash
+  xether team delete <TEAM_ID> --confirm
+  ```
+
+### Projects
+
+Manage project workspaces and team collaboration.
+
+- **List projects:**
+  ```bash
+  xether project ls
+  ```
+- **List projects in a specific team:**
+  ```bash
+  xether project ls --team <TEAM_ID>
+  ```
+- **View project details:**
+  ```bash
+  xether project info <PROJECT_ID>
+  ```
+- **Create a new project:**
+  ```bash
+  xether project create --name "My Project" --team <TEAM_ID> --description "Project description"
+  ```
+- **Update project details:**
+  ```bash
+  xether project update <PROJECT_ID> --name "New Name" --description "New description"
+  ```
+- **Delete a project:**
+  ```bash
+  xether project delete <PROJECT_ID> --confirm
+  ```
+
 ### Datasets
 
 Manage your raw data and files in the Xether Dataset Registry.
